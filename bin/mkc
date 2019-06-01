@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DIR="$PWD/$1";
+
+if [ ! -d $DIR ]; then
+    mkdir -p $DIR;
+fi
+
+cd $DIR;

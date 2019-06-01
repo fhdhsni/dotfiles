@@ -1,0 +1,3 @@
+#!/bin/bash
+echo https://unshorten.me/s/$1
+curl https://unshorten.me/s/$1

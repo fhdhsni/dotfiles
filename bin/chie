@@ -1,0 +1,8 @@
+#!/bin/sh
+
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+cal -3
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+jcal -3
+printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+date +'%H:%M %F'

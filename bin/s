@@ -1,0 +1,9 @@
+#!/bin/bash
+pkill xcape
+. $HOME/bin/changeLayout.sh
+. $HOME/bin/ctrl.sh
+. $HOME/bin/capsToBackspace.sh
+# synclient TapButton1=1 TapButton2=2 TapButton3=3
+# after 200 millisecond, with repeat rate of 120 repeat per second
+xset r rate 200 120
+# . $HOME/bin/emacsDaemon.sh &> /dev/null &

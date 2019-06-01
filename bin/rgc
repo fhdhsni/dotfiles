@@ -1,0 +1,2 @@
+FILENAME=`xclip -selection clipboard -o`
+rg --line-number $1 $FILENAME 

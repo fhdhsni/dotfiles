@@ -1,0 +1,4 @@
+#!/bin/sh
+cat /sys/devices/platform/asus-nb-wmi/hwmon/hwmon2/pwm1
+cat /sys/devices/platform/asus-nb-wmi/hwmon/hwmon2/temp1_input
+sensors

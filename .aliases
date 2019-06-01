@@ -1,0 +1,92 @@
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+
+alias ra="ranger"
+alias r="ranger"
+
+#################
+# Editor
+#################
+alias vim='vim'
+alias et="/usr/bin/emacsclient -t"
+alias en="/usr/bin/emacsclient -n"
+alias e="/usr/bin/emacsclient -n -c"
+alias E="SUDO_EDITOR=\"/usr/bin/emacsclient -t -a emacs\" sudoedit"
+
+#################
+# git
+#################
+alias lsgit='exa -l --git'
+alias lsigta='exa -la --git'
+alias g='git'
+alias gst='git status'
+alias gcm='git commit'
+alias gcmm='git commit -m'
+alias gdi='git diff'
+alias gb='git branch'
+alias gco='git checkout'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+#################
+# mix
+#################
+alias mt='mix test'
+
+#################
+# apt
+#################
+alias apts='apt search'
+alias sapti='sudo apt install'
+
+#################
+# ls
+################
+alias l='exa -1'
+alias ls='exa -1'
+alias ll='exa -l'
+alias la='exa -1a'
+alias lst='exa -T'
+
+#################
+# docker
+#################
+alias d='docker'
+alias dps='docker ps'
+alias dim='docker image'
+alias dco='docker container'
+alias dbu='docker build'
+alias dru='docker run'
+alias dbham='docker build -t hamsaa_web_app_dev -f dev.Dockerfile .'
+alias drham='docker run -it -p 3000:3000 -v ${PWD}:/app --rm --name hamsaa_web_app_dev hamsaa_web_app_dev'
+alias dexham='docker exec -it hamsaa_web_app_dev bash'
+
+alias ezsh='/usr/sbin/emacsclient -t $HOME/.zshrc'
+alias szsh='source $HOME/.zshrc'
+alias t='tmux'
+alias mylsblk='lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,STATE,OWNER,GROUP,MODE,TYPE,UUID'
+
+# create db for external drive => updatedb -l 0 -o ~/.externalharddisk.db -U /run/media/farhad
+alias alocate='locate -d ~/.externalharddisk.db:' # *a*lso external
+alias olocate='locate -d ~/.externalharddisk.db' # *o*nly external
+alias updateAll='sudo updatedb && updatedb -l 0 -o ~/.externalharddisk.db -U /run/media/farhad'
+alias pcat="pygmentize -f terminal256 -O style=native -g"
+alias c='xclip -selection clipboard'
+alias p='xclip -selection clipboard -o'
+alias cinco='chromium --incognito'
+alias o='xdg-open'
+alias bat='upower -i /org/freedesktop/UPower/devices/battery_BAT0| grep -E "state|to\ full|percentage"'
+alias enabletapclick='synclient TapButton1=1 TapButton2=2 TapButton3=3'
+alias rgl='rg --line-number'
+alias rgv='rg -i --vimgrep'
+alias dog='/usr/bin/bat'
+alias chromium-browser='chromium'
+alias dfc='dfc -T'
+alias mkc='. mkc'
+alias ..='cd ..'
+alias n='nnn'
+alias refmt=bsrefmt
+# converts ocaml code into reason
+alias mlre="p | refmt --parse ml --print re --interface false"
+# converts reason code into ocaml
+alias reml="p | refmt --parse re --print ml --interface false"

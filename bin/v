@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ $# -eq 0 ]; then
+    amixer set Master 0%
+else
+    amixer set Master "$1"%
+fi

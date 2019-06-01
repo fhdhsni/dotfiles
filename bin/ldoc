@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "No Argument Given";
+    CLIPBOARD=$(xclip -o)
+    FILE=$(echo $CLIPBOARD | sed 's/^\s//')
+else
+    FILE=$(echo $1 | sed 's/^\s//')
+fi
+notify-send -i /home/farhad/Pictures/longman.jpg -t 2000 $FILE
+SOUNDS=$HOME/sounds
+PLAY='mpv --really-quiet --quiet --speed=1'
+
+if [ ! -f "$SOUNDS/$FILE.mp3" ]; then
+    RES=$(curl "https://www.ldoceonline.com/dictionary/$FILE" -s | tr ' ' '\n' | grep -E 'data-src-mp3.*ame' | cut -d'"' -f2)
+    if [ -z $RES ]; then
+        notify-send -i /home/farhad/Pictures/longman.jpg -t 2000 "Found nothing for '$FILE'"
+    else
+        echo "$RES" | sed -r 's/\?.*//' | xargs wget -q -O "$SOUNDS/$FILE.mp3"
+    fi
+fi
+
+goldendict "$FILE"
+$PLAY "$SOUNDS/$FILE.mp3"

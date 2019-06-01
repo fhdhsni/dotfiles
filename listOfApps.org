@@ -1,0 +1,40 @@
+A checklist for fresh installation of Linux
+1. i3wm
+2. dunst
+3. i3 config
+4. i3 status bar
+5. gxkb (keyboard layout indicator)
+6. cbatticon (battery indicator)
+7. lxsession (session manager)
+8. lightdm (display manager)
+9. qt stuff (qtconfig-qt4,...)
+10. lxappearance (for GTK apps)
+11. vokoscreen & silentcase (screen recording)
+12. Operator Mono Font
+13. ttf-emojione-color
+14. noto-fonts-emoji
+15. Emacs
+16. ZSH
+17. Chrome
+18. Firefox
+19. Sxiv
+20. Sxiv-rifle
+21. Inkscape
+22. Okular (PDF reader)
+23. Erlang
+24. Elixir
+25. Node
+26. NPM (change global location)
+27. fnm (node version manager)
+32. Git
+33. lf, fzf, ag, fd, rg
+38. xclip
+39. Mplayer & mpv
+40. Jcal
+41. Aria2c
+42. Youtube-dl
+43. Teiler
+44. diff-so-fancy
+46. Rofi (app launcher)
+47. source-highlight (to enable syntax-highlighting in less)
+48. zenity
