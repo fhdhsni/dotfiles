@@ -1,0 +1,29 @@
+[user]
+	name = Farhad
+	email = farhad.hsni@gmail.com
+[init]
+	defaultBranch = master
+[core]
+    pager = delta
+	excludesfile = /Users/farhad/.gitignore_global
+	autocrlf = input
+
+[include]
+    path = /Users/farhad/themes.gitconfig
+
+[delta]
+    features = villsau
+    # features = woolly-mammoth
+    # plus-style = "syntax #012800"
+    # minus-style = "syntax #340001"
+    # syntax-theme = Monokai Extended
+    # navigate = true
+    # side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
