@@ -750,7 +750,8 @@ there's a region, all lines that region covers will be duplicated."
 (use-package flycheck
   :straight t
   :bind (("C-M-m" . flycheck-mode)
-         ("M-L" . flycheck-buffer))
+         ("M-L" . flycheck-buffer)
+         ("C-c u" . flycheck-list-errors))
   :config
   (defun my/use-eslint-from-node-modules ()
     (let* ((root (locate-dominating-file
@@ -1305,7 +1306,7 @@ there's a region, all lines that region covers will be duplicated."
                                    (lsp-ui-flycheck-enable 1))))
 
 (use-package org
-  :mode "\\.org\\'"
+  :mode ("\\.org" . org-mode)
   :defer 8
   :init
   (require 'org-tempo)
@@ -1719,7 +1720,6 @@ there's a region, all lines that region covers will be duplicated."
   (add-hook 'prog-mode-hook 'company-mode)
   (add-hook 'elixir-mode-hook 'company-mode)
   (add-hook 'eshell-mode-hook 'company-mode)
-  (add-to-list 'company-backends 'company-elm)
 
   (require 'company-dabbrev)
   (use-package company-lsp
@@ -1875,6 +1875,8 @@ Use in `isearch-mode-end-hook'."
  :map fhd-mode-map
  ("C-, C-j" . join-line)
  ("C-, n" . flymake-goto-next-error)
+ ("M-g M-p" . flycheck-previous-error)
+ ("M-g M-n" . flycheck-nex-error)
  ("C-, C-s" . eshell)
  ("C-, p" . flymake-goto-prev-error)
  ("C-, C-t" . toggle-truncate-lines)
