@@ -1876,7 +1876,7 @@ Use in `isearch-mode-end-hook'."
  ("C-, C-j" . join-line)
  ("C-, n" . flymake-goto-next-error)
  ("M-g M-p" . flycheck-previous-error)
- ("M-g M-n" . flycheck-nex-error)
+ ("M-g M-n" . flycheck-next-error)
  ("C-, C-s" . eshell)
  ("C-, p" . flymake-goto-prev-error)
  ("C-, C-t" . toggle-truncate-lines)
