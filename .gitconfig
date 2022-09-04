@@ -1,15 +1,15 @@
 [user]
-	name = Farhad
-	email = farhad.hsni@gmail.com
+	name = farhad.hassani
+	email = farhad.hassani@relexsolutions.com
 [init]
 	defaultBranch = master
 [core]
     pager = delta
-	excludesfile = /Users/farhad/.gitignore_global
+	excludesfile = /Users/farhad.hassani/.gitignore_global
 	autocrlf = input
 
 [include]
-    path = /Users/farhad/themes.gitconfig
+    path = /Users/farhad.hassani/themes.gitconfig
 
 [delta]
     features = villsau
@@ -27,3 +27,11 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/farhad.hassani/.stCommitMsg

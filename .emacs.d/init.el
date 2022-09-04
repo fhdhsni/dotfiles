@@ -18,7 +18,7 @@
          user-init-directory)
         (t "~/.emacs.d/")))
 
-(setq user-full-name "Farhad Hasani"
+(setq user-full-name "Farhad Hassani"
       user-mail-address "farhad.hsni@gmail.com")
 
 (defun fhd/load-user-file (file)
@@ -185,6 +185,11 @@ Repeated invocations toggle between the two most recently open buffers."
   "Open init.el file."
   (interactive)
   (find-file "~/.emacs.d/init.el"))
+
+(defun fhd/open-planner-ui ()
+  "Open init.el file."
+  (interactive)
+  (dired "~/projects/planner-ui"))
 
 (defun fhd/duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
@@ -499,7 +504,7 @@ there's a region, all lines that region covers will be duplicated."
  apropos-sort-by-scores t
  ;; default-frame-alcist '((font . "Fira Code Medium-17") (cursor-type . bar))
  ;; default-frame-alist '((font . "Operator Mono Book-18") (cursor-type . box))
- default-frame-alist '((font . "JetBrains Mono-15") (cursor-type . box))
+ default-frame-alist '((font . "JetBrains Mono-14") (cursor-type . box))
  scroll-margin 1
  scroll-conservatively 9999
  scroll-step 1
@@ -588,6 +593,7 @@ there's a region, all lines that region covers will be duplicated."
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 (global-set-key (kbd "C-c o") 'ace-window)
 (global-set-key (kbd "s-t") 'fhd/nothing)
+(global-set-key (kbd "M-j") 'fhd/nothing)
 (global-set-key (kbd "M-p") 'goto-line)
 (global-set-key (kbd "C-+") 'fill-paragraph)
 (global-set-key (kbd "C-c C-n")  'fhd/toggle-comment-on-line)
@@ -949,7 +955,7 @@ there's a region, all lines that region covers will be duplicated."
   (elixir-mode . show-smartparens-mode)
   (elixir-mode . ruby-end-mode)
   :init
-  (add-to-list 'exec-path "~/repos/elixir-ls/release")
+  (add-to-list 'exec-path "~/elixir-ls")
   (fset 'fhd/unshort-elixir-def
         (lambda (&optional arg)
           "Keyboard macro."
@@ -1256,6 +1262,7 @@ there's a region, all lines that region covers will be duplicated."
           ;; ("C-'" . consult-buffer)
           ;; ("M-y" . consult-yank-pop)
           ("C-, C-f" . find-file-in-project)
+          ("C-, C-c" . find-file-in-current-directory)
           ))
 
 ;; ;; to make sorting and filtering more intelligent
@@ -1273,10 +1280,11 @@ there's a region, all lines that region covers will be duplicated."
   :config
   (flymake-mode 0)
   :init
+  (add-to-list 'exec-path "~/elixir-ls")
   ;; (require 'lsp-clients)
   (defun lsp-go-install-save-hooks ()
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
   (add-hook 'lsp-ui-mode-hook
 	        (lambda ()
@@ -1402,18 +1410,18 @@ there's a region, all lines that region covers will be duplicated."
                                (setq js2-basic-offset 2)
                                (setq js2-strict-trailing-comma-warning nil))))
 
-(use-package rjsx-mode
-  :straight t
-  :after js2-mode
-  :hook
-  ;; (rjsx-mode . prettier-js-mode)
-  (rjsx-mode . tide-mode)
-  (rjsx-mode . flycheck-mode)
-  :init
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
-  ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.mjs\\'" . rjsx-mode)))
+;; (use-package rjsx-mode
+;;   :straight t
+;;   :after js2-mode
+;;   :hook
+;;   ;; (rjsx-mode . prettier-js-mode)
+;;   (rjsx-mode . tide-mode)
+;;   (rjsx-mode . flycheck-mode)
+;;   :init
+;;   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . rjsx-mode))
+;;   ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.mjs\\'" . rjsx-mode)))
 
 (use-package eslint-fix :after js2-mode)
 
@@ -1598,6 +1606,7 @@ there's a region, all lines that region covers will be duplicated."
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . typescript-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.mjs\\'" . typescript-mode))
   :hook
@@ -1611,6 +1620,7 @@ there's a region, all lines that region covers will be duplicated."
 (use-package tide
   :defer t
   :bind (:map tide-mode-map
+              ("C-c h" . tide-references)
               ("C-c r" . tide-rename-symbol)
               ("C-c d" . tide-documentation-at-point)
               ("C-c C-t" . tide-fix))
@@ -1648,7 +1658,7 @@ there's a region, all lines that region covers will be duplicated."
 
   ;; formats the buffer before saving
   ;; (add-hook 'before-save-hook 'tide-format-before-save)
-
+  (add-hook 'typescript-mode-hook #'add-node-modules-path)
   (add-hook 'typescript-mode-hook #'setup-tide-mode))
 (setq tide-format-options
       '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t :placeOpenBraceOnNewLineForFunctions nil))
@@ -1715,18 +1725,13 @@ there's a region, all lines that region covers will be duplicated."
   :demand t
   :bind (("C-c C-y" . company-complete)
          ("C-c y" . company-complete)
-         ("C-`" . company-lsp))
+         )
   :config
   (add-hook 'prog-mode-hook 'company-mode)
   (add-hook 'elixir-mode-hook 'company-mode)
   (add-hook 'eshell-mode-hook 'company-mode)
 
   (require 'company-dabbrev)
-  (use-package company-lsp
-    :init
-    (push 'company-lsp company-backends)
-    (setq company-lsp-cache-candidates t
-          company-lsp-async t))
   (bind-keys
    :map company-active-map
    ("C-n" . company-select-next)
@@ -1742,12 +1747,12 @@ there's a region, all lines that region covers will be duplicated."
   (setq
    company-dabbrev-downcase nil
    company-tooltip-flip-when-above t
-   company-minimum-prefix-length 2
-   company-idle-delay 0.1
+   company-minimum-prefix-length 1
+   company-idle-delay 0.05
    company-selection-wrap-around t
    company-show-numbers t
    company-require-match 'never
-   company-tooltip-idle-delay 0.5
+   company-tooltip-idle-delay 0.1
    company-tooltip-align-annotations t)
 
   ;; Add yasnippet support for all company backends
@@ -1771,7 +1776,24 @@ there's a region, all lines that region covers will be duplicated."
     '(define-key company-active-map (kbd "M-h") #'company-quickhelp-manual-begin)))
 
 (use-package ivy-hydra
-  :defer t)
+  :defer t
+  :init
+  (defhydra hydra-outline (:color pink :hint nil)
+    "
+^Go to directory^
+^^^^^^------------------------------------------------------
+_p_: plannerUI
+_f_: fragments
+_w_: wfo-backend
+
+"
+    ("p" (dired "~/projects/planner-ui"))
+    ("f" (dired "~/projects/fragments"))
+    ("w" (dired "~/projects/wfo-backend"))
+    ("z" nil "leave"))
+
+  (global-set-key (kbd "M-#") 'hydra-outline/body) ; by example
+  )
 
 (custom-set-faces
  '(selectrum-prescient-primary-highlight ((t (:foreground "light green" :weight bold))))
@@ -1783,8 +1805,11 @@ there's a region, all lines that region covers will be duplicated."
  ;; '(mode-line ((t (:box nil :background "grey80" :height 0.1))))
  ;; '(mode-line-inactive ((t (:box nil :background "grey30" :height 0.1))))
  '(mmm-default-submode-face ((t nil)))
+ '(hl-line ((t (:extend t :background "Black"))))
+ '(variable-pitch ((t (:family "JetBrains Mono"))))
  '(treemacs-root-face ((t (:inherit font-lock-constant-face :height 1.0))))
  ;; '(mode-line-buffer-id ((t (:foreground "darkmagenta"))))
+
  )
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -1873,7 +1898,9 @@ Use in `isearch-mode-end-hook'."
 (global-fhd-mode 1)
 (bind-keys
  :map fhd-mode-map
+ ("C-`" . diff-buffer-with-file)
  ("C-, C-j" . join-line)
+ ("C-c C-d" . fhd/duplicate-current-line-or-region)
  ("C-, n" . flymake-goto-next-error)
  ("M-g M-p" . flycheck-previous-error)
  ("M-g M-n" . flycheck-next-error)
